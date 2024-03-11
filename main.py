@@ -24,8 +24,13 @@ cv2.drawContours(mask, contours, -1, (255, 255, 255), thickness=cv2.FILLED)
 masked_image = cv2.bitwise_and(image, mask)
 
 # Display the original image and masked image
+cv2.imshow("gray", thresh)
 cv2.imshow('Original Image', image)
 cv2.imshow('Masked Image', masked_image)
+
+cv2.imwrite("binary.jpg", thresh)
+cv2.imwrite('Original Image.jpg', image)
+cv2.imwrite('Masked Image.jpg', masked_image)
 
 # Wait for key press and close windows
 cv2.waitKey(0)
