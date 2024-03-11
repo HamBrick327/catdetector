@@ -1,37 +1,17 @@
 import cv2
 import numpy as np
 
-# Read the image
-image = cv2.imread('input_image.jpg')
-print(image[375][95])
+def colormask(img, upperBound, lowerBound): ## bounds need to be np arrays for opencv to be able to process them
+    ## convert the bounds to hsv values
+    upperBound = cv2.cvtColor([[upperBound]], cv2.COLOR_BGR2HSV) ## assumes inserted nparray is in BGR format, and converts it to HSV format for processing
+   
+    ## get input image, then convert it to hsv
+    hsv = cv2.cvtColor(img, cv2.COL0R_BGR2HSV)
 
-# Convert image to grayscale
-gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    ## make the mask to later apply to the input_image
+    mask = cv2.inRange(hsv, upperBound, lowerBound) ## --> binary image to be compared to input_image
 
-# Define a threshold value and apply thresholding
-_, thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY_INV)
 
-# Find contours
-contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    return cv2.bitwise_and(img, img, mask=mask)
 
-# Create a mask
-mask = np.zeros_like(image)
-
-# Draw contours on the mask
-cv2.drawContours(mask, contours, -1, (255, 255, 255), thickness=cv2.FILLED)
-
-# Apply the mask to the original image
-masked_image = cv2.bitwise_and(image, mask)
-
-# Display the original image and masked image
-cv2.imshow("gray", thresh)
-cv2.imshow('Original Image', image)
-cv2.imshow('Masked Image', masked_image)
-
-cv2.imwrite("binary.jpg", thresh)
-cv2.imwrite('Original Image.jpg', image)
-cv2.imwrite('Masked Image.jpg', masked_image)
-
-# Wait for key press and close windows
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+cv2.imshow("output", colormask(image))
