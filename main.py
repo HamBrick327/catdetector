@@ -1,11 +1,11 @@
 import cv2
 import numpy as np
+from time import time, sleep
 
 '''before this happens we need to get image from webcam'''
 image = cv2.imread('./input_image.jpg')
 
 ## youtube tutorial and (some) code from https://github.com/techwithtim/OpenCV-Tutorials/blob/main/tutorial5.py
-
 
 ## grayscale now because the final deployment will be running on a device with 512megs of ram and the less numbers the better
 upperBound = 38
