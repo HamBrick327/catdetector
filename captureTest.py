@@ -3,7 +3,7 @@ import os
 
 camera = cv2.VideoCapture(0)
 
-_, image = camera.read()
+_, image = camera.read() ## <-- _, is important because touple breaks otherwise
 
 print(type(image))
 
