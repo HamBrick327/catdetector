@@ -2,3 +2,7 @@ add soundcard to raspi
 
 add laughtrack when cat comes on frame
 do the actualy servo and model the food holder thing
+
+layered 'airlock' system to portion food properly
+
+change cat image cropping on ln11 to work with percentagesv
