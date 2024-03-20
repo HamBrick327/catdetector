@@ -3,8 +3,10 @@ import os
 
 camera = cv2.VideoCapture(0)
 
-image = camera.read()
+_, image = camera.read()
 
-cv2.imwrite("cameracapture.jpg", image)
+print(type(image))
+
+cv2.imwrite(filename="cameracapture.jpg", img=image)
 
 print("captured image")
