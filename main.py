@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 from time import time, sleep
 from os import getcwd
-from googlevoice import Voice
 
 ''' GET WEBCAM IMAGE CODE BLOCK (not in use right now because I'm just using the test images)
 cam = cv2.VideoCapture(0)
