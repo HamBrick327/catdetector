@@ -27,11 +27,13 @@ def detectCat(img):
     ## generate a binary image to be compared to the grayscale image
     mask = cv2.inRange(gray, lowerBound, upperBound)
 
-    ## quick test to see how long it'll take my laptop to loop through the image
+    ## quick test to see how long it'll take my laptop to loop through the image took an hour for the raspi
+    ## takes about 90 seconds for lower-res webcam images
     for i in range(mask.shape[0] - 1): ## for every width
         for j in range(mask.shape[1] - 1): ## for every height
             print(mask[i, j])
     print(f"done in {time() - start}")
+
 ## TODO crop the image and find out if A) cat is present and B) is there food in the bowl (but not yet because I don't have an image for that)
 
 ### end techwithtim adapted code ###
@@ -40,7 +42,7 @@ def detectCat(img):
 - store the time cat was last seen
 - send push notifications?
 '''
-detectCat("testImageCat.jpg")
+detectCat("cameracapture.jpg")
 
 ## records the last time the cat was seen (but not really, there needs to be more logic)
 # lastSeen = time()
