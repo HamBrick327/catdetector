@@ -49,7 +49,6 @@ def detectCat(img):
     totalWhite = 0
     for i in range(mask.shape[0] - 1): ## for every width
         for j in range(mask.shape[1] - 1): ## for every height
-            print(mask[i, j])
             if mask[i, j] == 255: totalWhite += 1
     print(f"done in {time() - start}")
 
@@ -68,9 +67,10 @@ def detectCat(img):
 - send push notifications?
 '''
 launchTime = int(time())
+while True:
 ## this get the time since the program launched, and checks if it has been an even multiple of delayTime since then
-if (int(time()) - launchTime) % delayTime == 0:
-    detectCat("cameracapture.jpg")
+    if (int(time()) - launchTime) % delayTime == 0:
+        print(detectCat("testImageCat.jpg"))
 
 ## records the last time the cat was seen (but not really, there needs to be more logic)
 # lastSeen = time()
