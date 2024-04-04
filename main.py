@@ -20,6 +20,7 @@ def capImage(cam: int = 0): ## argument is the desired camera from the opencv li
     cv2.imwrite(filename="cameracapture.jpg", img=image)
 
     print(strftime("%d.%m:%k%M%S"), " captured new image")
+    return image
 
 
 def detectCat(img):
