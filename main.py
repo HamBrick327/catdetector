@@ -1,13 +1,12 @@
 import cv2
 import numpy as np
-from time import time, sleep, strftime
-from os import getcwd
+from time import time, strftime, sleep
 
 ''' GET WEBCAM IMAGE CODE BLOCK (not in use right now because I'm just using the test images)
 cam = cv2.VideoCapture(0)
 _, image = camera.read() <-- _, is important because othewise the tuple isn't an image and freaks out
 '''
-delayTime = 15
+delayTime = 15 ## time between repeats in seconds
 lastSeen = 0
 
 ## use this in final deployment to get the image from the webcam connected to the raspi
@@ -70,9 +69,18 @@ launchTime = int(time())
 while True:
 ## this get the time since the program launched, and checks if it has been an even multiple of delayTime since then
     if (int(time()) - launchTime) % delayTime == 0:
-        output = (detectCat("testImageCat.jpg"))
-        if output: lastSeen = time()
+        print("time repeat, taking picture now")
+        output = (detectCat("/home/hollajam000/catdetector/images/2.jpg"))
+        if output:
+            lastSeen = time()
+            print("cat detected")
+        else:
+            print("no cat in sight")
+    sleep(.5)
 
+
+## this code is posted to https://github.com/hambrick327/catdetector
+        
 ## records the last time the cat was seen (but not really, there needs to be more logic)
 # lastSeen = time()
 # cv2.waitKey() ## imshow only works with waitkey() KEEP THIS WHEN SHOWING AN IMAGE!!!!!!!!!!1 ############
