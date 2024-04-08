@@ -8,6 +8,7 @@ cam = cv2.VideoCapture(0)
 _, image = camera.read() <-- _, is important because othewise the tuple isn't an image and freaks out
 '''
 delayTime = 15
+lastSeen = 0
 
 ## use this in final deployment to get the image from the webcam connected to the raspi
 def capImage(cam: int = 0): ## argument is the desired camera from the opencv list of connected cameras to the device; usually zero
@@ -58,7 +59,6 @@ def detectCat(img):
     else:
         return False
 
-## TODO crop the image and find out if A) cat is present and B) is there food in the bowl (but not yet because I don't have an image for that)
 
 ### end techwithtim adapted code ###
 '''
@@ -70,7 +70,8 @@ launchTime = int(time())
 while True:
 ## this get the time since the program launched, and checks if it has been an even multiple of delayTime since then
     if (int(time()) - launchTime) % delayTime == 0:
-        print(detectCat("testImageCat.jpg"))
+        output = (detectCat("testImageCat.jpg"))
+        if output: lastSeen = time()
 
 ## records the last time the cat was seen (but not really, there needs to be more logic)
 # lastSeen = time()
