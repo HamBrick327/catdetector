@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from time import time, strftime, sleep
+from os import path
 
 ''' GET WEBCAM IMAGE CODE BLOCK (not in use right now because I'm just using the test images)
 cam = cv2.VideoCapture(0)
@@ -17,13 +18,15 @@ def capImage(cam: int = 0): ## argument is the desired camera from the opencv li
 
     print(type(image))
 
-    cv2.imwrite(filename="cameracapture.jpg", img=image)
+    cv2.imwrite(filename="./images/cameracapture.jpg", img=image)
 
     print(strftime("%d.%m:%k%M%S"), " captured new image")
     return image
 
 
 def detectCat(img):
+    capImage(0)
+    
     start = time() ## record the time the main function started, used later when calculating the runtime
     image = cv2.imread(img) ## <-- call the capImage function instead to use the webcam
     size = image.shape[:2] ## practicing python slicing, takes everything from the beginning to the second element, exclusive
@@ -70,7 +73,9 @@ while True:
 ## this get the time since the program launched, and checks if it has been an even multiple of delayTime since then
     if (int(time()) - launchTime) % delayTime == 0:
         print("time repeat, taking picture now")
-        output = (detectCat("/home/hollajam000/catdetector/images/2.jpg"))
+        if  not path.exists("./images/cameracapture.jpg"): ## check if there's an existing webcam image, if not, take image from the webcam
+            capImage(0)
+        output = (detectCat("/home/hollajam000/catdetector/images/cameracapture.jpg")) ## run the actual funciton with a parameter that points to the webcam image
         if output:
             lastSeen = time()
             print("cat detected")
