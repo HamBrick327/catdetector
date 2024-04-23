@@ -1,13 +1,12 @@
 import cv2
-import numpy as np
 from time import time, strftime, sleep
-from os import path
+from os import path, getcwd
 
 ''' GET WEBCAM IMAGE CODE BLOCK (not in use right now because I'm just using the test images)
 cam = cv2.VideoCapture(0)
 _, image = camera.read() <-- _, is important because othewise the tuple isn't an image and freaks out
 '''
-delayTime = 15 ## time between repeats in seconds
+delayTime = 5 ## time between repeats in seconds
 lastSeen = 0
 
 ## use this in final deployment to get the image from the webcam connected to the raspi
@@ -16,8 +15,6 @@ def capImage(cam: int = 0): ## argument is the desired camera from the opencv li
 
     _, image = camera.read() ## <-- _, is important because touple breaks otherwise
 
-    print(type(image))
-
     cv2.imwrite(filename="./images/cameracapture.jpg", img=image)
 
     print(strftime("%d.%m:%k%M%S"), " captured new image")
@@ -25,7 +22,7 @@ def capImage(cam: int = 0): ## argument is the desired camera from the opencv li
 
 
 def detectCat(img):
-    capImage(0)
+    # capImage(0)
     
     start = time() ## record the time the main function started, used later when calculating the runtime
     image = cv2.imread(img) ## <-- call the capImage function instead to use the webcam
@@ -73,13 +70,14 @@ while True:
 ## this get the time since the program launched, and checks if it has been an even multiple of delayTime since then
     if (int(time()) - launchTime) % delayTime == 0:
         print("time repeat, taking picture now")
-        if  not path.exists("./images/cameracapture.jpg"): ## check if there's an existing webcam image, if not, take image from the webcam
-            capImage(0)
-        output = (detectCat("/home/hollajam000/catdetector/images/cameracapture.jpg")) ## run the actual funciton with a parameter that points to the webcam image
-        if output:
+        # if  not path.exists("./images/cameracapture.jpg"): ## check if there's an existing webcam image, if not, take image from the webcam
+        #     capImage(0)
+        # output = (detectCat("~/catdetector/images/cameracapture.jpg")) ## run the actual funciton with a parameter that points to the webcam image
+        output = detectCat(path.join(getcwd(), "./images/test0.jpg"))
+        if output: ## if my function returns True
             lastSeen = time()
             print("cat detected")
-        else:
+        else: ## if my function returns False
             print("no cat in sight")
     sleep(.5)
 
